@@ -21,6 +21,10 @@ INC_H		= $(wildcard $(INC_DIR)*.h)
 
 # main dir with any libraries
 LIB_DIR		= ../libs
+LIB_CJSON   = ../libs/cjson/obj
+LIB_CRYPT   = ../libs/crypt/obj
+LIB_LIBMX   = ../libs/libmx/obj
+LIB_UTILS   = ../libs/utils/obj
 # list of all names of libraries in LIB_DIR
 LIB_LIST	= $(notdir $(wildcard $(LIB_DIR)/*))
 # make path to library ../libs/<lib_name>/
@@ -77,6 +81,14 @@ clean:
 
 uninstall:
 	@$(RM) $(OBJ_DIR) $(NAME)
+	@$(RM) $(LIB_CJSON)
+	@printf "$(LIB_CJSON) \033[31;1mdeleted\033[0m\n"
+	@$(RM) $(LIB_CRYPT)
+	@printf "$(LIB_CRYPT) \033[31;1mdeleted\033[0m\n"
+	@$(RM) $(LIB_LIBMX)
+	@printf "$(LIB_LIBMX) \033[31;1mdeleted\033[0m\n"
+	@$(RM) $(LIB_UTILS)
+	@printf "$(LIB_UTILS) \033[31;1mdeleted\033[0m\n"
 	@printf "$(NAME) \033[31;1muninstalled\033[0m\n"
 
 reinstall: uninstall all
