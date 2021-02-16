@@ -1,58 +1,38 @@
 #include "../inc/uchat_client.h"
 
-gboolean test(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
-    CUR_WIDTH = event->configure.width;
-    CUR_HEIGHT = event->configure.height;
-    //gtk_widget_queue_resize(GTK_WIDGET(widget));
-    gtk_widget_queue_draw(GTK_WIDGET(widget));
-    if (user_data) {}
-    return FALSE;
-}
-
 int main(int argc, char *argv[]) {
-    // Containers
-    GtkWidget *window = NULL;
-    GtkWidget *main_area = NULL;
-    GtkWidget *left_header = NULL;
-    GtkWidget *content_selection_area = NULL;
-    GtkWidget *chat_enter_area = NULL;
-
-    GdkPixbuf *icon = NULL;
-    GtkWidget *entry_search = NULL;
-
-    // Drawing areas
-    GtkWidget *background = NULL;
-    GtkWidget *settings = NULL;
-    GtkWidget *messages = NULL;
-    GtkWidget *contacts = NULL;
-    //GtkWidget *more = NULL;
-    mx_load_images();
-  
+    if (argc != 3) {
+       fprintf(stderr,"usage %s hostname port\n", argv[0]);
+       exit(0);
+    }
+    mx_init_global_vars();
+    argv_ptr = argv;
+    mx_connect_to_server(&sockfd);
+    mx_get_language_arr();
+    
+    mx_init_user();
     gtk_init(&argc, &argv);
+
+    cssProvider = gtk_css_provider_new();
+    gtk_css_provider_load_from_path(cssProvider, "client/css/standard/uchat.css", NULL);
+    gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
+        GTK_STYLE_PROVIDER(cssProvider), GTK_STYLE_PROVIDER_PRIORITY_USER);
   
     // Create a new window
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-    mx_init_window(&window, &icon);
-    icon = mx_create_pixbuf("client/img/logo.png");
+    mx_init_window();
 
     // Create a main area where all widgets will be shown
-    mx_configure_main_area(&main_area, &background, &window);
-    // Create a header for left area
-    mx_configure_left_header(&left_header, &main_area, &entry_search);
-    // Create a selection area
-    mx_configure_content_selection_area(&content_selection_area, &main_area, 
-        &messages, &contacts, &settings);
-    // Create a chat enter area
-    mx_configure_chat_enter_area(&chat_enter_area, &main_area);
-
-    g_signal_connect(window, "configure-event", G_CALLBACK(test), NULL);
+    mx_configure_main_area();
 
     gtk_widget_show_all (window);
+    mx_create_registration_menu();
 
     gtk_main();
-  
-    g_object_unref(icon); //in fact, a "free" command
-    mx_free_images();
+    mx_free_data();
+
+    close(sockfd);
+    if (sock_for_rooms != 0)
+        close(sock_for_rooms);
     return 0;
 }
