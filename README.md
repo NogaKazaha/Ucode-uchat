@@ -25,9 +25,9 @@
     <p align="center"><a href="https://github.com/SansNumbers" target="_blank"><img src="https://github.com/NogaKazaha/NogaKazaha/blob/master/img/Photos/iantypin.png" height="100px"></a></p>
       <h2 align="center">iantypin</h2>
     <p align="center"><a href = "https://github.com/vveklenko"><img src="https://github.com/NogaKazaha/NogaKazaha/blob/master/img/Uchat/vveklenko.png" height="100px"></a></p>
-    <h2 align="center">abashlykov</h2>
+    <h2 align="center">vveklenko</h2>
     <p align="center"><a href="https://github.com/bbsofia"><img src= "https://github.com/NogaKazaha/NogaKazaha/blob/master/img/Uchat/sborodenko.png" height="100px"></a></p>
-    <h2 align="center">azhuk</h2>
+    <h2 align="center">sborodenko</h2>
     <h2 align="center">Here is a gif how to use our chat</h2>
     <p align="center"><img src="https://github.com/NogaKazaha/NogaKazaha/blob/master/img/Uchat/ezgif-7-b1704a105986.gif"></p>
 </body>
